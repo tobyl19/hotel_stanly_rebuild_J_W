@@ -77,7 +77,7 @@ class SectionList extends React.Component {
                 >
 
                     <div style={this.styles.upArrow} onClick={this.goUp}>
-                        <img src={UpButton} style={{ width: "50%" }} alt="Up" />
+                        <img src={UpButton} style={{ width: "76px", height: "76px" }} alt="Up" />
                     </div>
 
                     <div className="vertical-title">
@@ -88,7 +88,7 @@ class SectionList extends React.Component {
                     <div style={this.styles.downArrow} onClick={this.goDown}>
                         <img
                             src={DownButton}
-                            style={{ width: "50%" }}
+                            style={{ width: "76px", height: "76px" }}
                             alt="Down"
                         />
                     </div>
@@ -118,11 +118,11 @@ class SectionList extends React.Component {
                                         style={{
                                             width: "100%",
                                             height: "33.33333%",
-                                            backgroundImage: `url(${
+                                            backgroundImage: `url('${
                                                 images[index]
-                                                })`,
+                                                }')`,
                                             //    backgroundImage: `url(${item.images})`,
-                                            backgroundPosition: backgroundPositionValue,
+                                            backgroundPosition: "center center",
                                             backgroundRepeat: "no-repeat",
                                             backgroundSize: "cover",
                                             display: "flex",
@@ -169,7 +169,7 @@ SectionList.defaultProps = {
     linkFunction: (namespace, item) => {
         return `${namespace}/${item.id}`;
     },
-    backgroundPositionValue: "center"
+    backgroundPositionValue: "center center"
 };
 SectionList.propTypes = {
     data: PropTypes.array.isRequired,

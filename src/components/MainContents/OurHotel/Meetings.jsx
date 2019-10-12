@@ -2,10 +2,10 @@ import React from 'react';
 import SubsectionList from "../List/SubsectionList";
 import RestaurantListicon from './icons/RestaurantListIcon.6a75108a.png';
 
-import  MTWIL from './img_logo/meeting /Our_Hotel_Section_Images2_1ckFKEE-MT-WILHELM.jpg';
-import  MTVIC  from './img_logo/meeting /Our_Hotel_Section_Images2_unGoJbX-MT-VIC.jpg';
-import  KOKO  from './img_logo/meeting /Our_Hotel_Section_Imagesballroom2_EPgBbAS-KOKO.jpg';
-import  BOARDROOM from './img_logo/meeting /Our_Hotel_Section_Imagesmeeting4-boardroom.jpg';
+import  MTWIL from './img_logo/meeting/Our_Hotel_Section_Images2_1ckFKEE-MT-WILHELM.jpg';
+import  MTVIC  from './img_logo/meeting/Our_Hotel_Section_Images2_unGoJbX-MT-VIC.jpg';
+import  KOKO  from './img_logo/meeting/Our_Hotel_Section_Imagesballroom2_EPgBbAS-KOKO.jpg';
+import  BOARDROOM from './img_logo/meeting/Our_Hotel_Section_Imagesmeeting4-boardroom.jpg';
 
 
 
@@ -20,7 +20,7 @@ const ourhotel_Meeting = [
     },
     {
         id: 2,
-        title: 'MT WILHELM ROOMS',
+        title: 'MT WELHELM ROOMS',
         img_url: MTWIL,
        
 
@@ -59,7 +59,8 @@ const Meetings = () => {
              ]}
              sideTitle="OUR HOTEL"
              mainTitle="MEETINGS"
-             evenDetailsProps={ourhotel_Meeting}
+             evenDetailsProps={ourhotel_Meeting}              
+             thumbnailStyle={{ width: "316px", height: "207px"}}
         >
             
         </SubsectionList> 

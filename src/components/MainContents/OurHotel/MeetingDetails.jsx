@@ -3,14 +3,6 @@ import React from 'react';
 import RestaurantListicon from './icons/RestaurantListIcon.6a75108a.png';
 import { Link } from "react-router-dom";
 
-
-import  MTWIL from './img_logo/meeting /Our_Hotel_Section_Images2_1ckFKEE-MT-WILHELM.jpg';
-import  MTVIC  from './img_logo/meeting /Our_Hotel_Section_Images2_unGoJbX-MT-VIC.jpg';
-import  KOKO  from './img_logo/meeting /Our_Hotel_Section_Imagesballroom2_EPgBbAS-KOKO.jpg';
-import  BOARDROOM from './img_logo/meeting /Our_Hotel_Section_Imagesmeeting4-boardroom.jpg';
-
-
-
 import '../List/MainSectionList.scss';
 import "./OurHotel.scss";
 
@@ -18,7 +10,7 @@ import "./OurHotel.scss";
 
 import {
     eventNamespace,
-    accomodationNamespace,
+    imageGallery,
     HeavyOrange,
     LightBlueButtonBackground,
     ExtraHeavyBlueGreen,
@@ -30,54 +22,69 @@ const ourhotel_Meeting = [
     {
         id: 1,
         title: 'BOARDROOM',
-        img_url: BOARDROOM,
-        description: `he Boardroom conveniently located in the hotel lobby, next to the Business Centre, is perfectly suited for a business meeting or intimate discussions for up to 12 people.`,
+        description: `The Boardroom conveniently located in the hotel lobby, next to the Business Centre, is perfectly suited for a business meeting or intimate discussions for up to 12 people.`,
         details: {
             contact: '+675 302 8888 for more information'
-        }
+        },
+        images: [
+            { imageFile: '/imgs/ourHotel/H4-Meeting/H4A-Boardroom/Our Hotel Section_ImagesMeeting3.jpg' },
+            { imageFile: '/imgs/ourHotel/H4-Meeting/H4A-Boardroom/Our Hotel Section_Imagesmeeting4.jpg' },
+            { imageFile: '/imgs/ourHotel/H4-Meeting/H4A-Boardroom/Our Hotel Section_Imagesmeeting5.jpg' },
+        ]
      
         
     },
     {
         id: 2,
-        title: 'MT WILHELM ROOMS',
-        img_url: MTWIL,
-        description: `A suite of smaller meeting rooms with direct access onto a large outdoor terrace.
-
-        Rooms have the flexibility to accommodation whatever your requirements may be; theatre, classroom, boardroom, u-shape, cabaret, banqueting or cocktail.
-        
-        The rooms can cater for meetings for 20 people or for you to 60 people.`,
+        title: 'MT WELHELM ROOMS',
+        description: `<p>A suite of smaller meeting rooms with direct access onto a large outdoor terrace.</p>
+            <p>Rooms have the flexibility to accommodation whatever your requirements may be; theatre, classroom, boardroom, u-shape, cabaret, banqueting or cocktail.</p>
+            <p>The rooms can cater for meetings for 20 people or for you to 60 people.</p>`,
         details: {
             contact: '+675 302 8888 for more information'
-        }
+        },
+        images: [
+            { imageFile: '/imgs/ourHotel/H4-Meeting/H4B-MT Welhelm/Our Hotel Section_Images2.jpg' },
+        ]
        
 
     },
     {
         id: 3,
         title: 'MT VICTORIA ROOMS',
-        img_url: MTVIC,
-        description: `A suite of smaller meeting rooms featuring natural lighting.
-
-        Rooms have the flexibility to accommodation whatever your requirements may be; theatre, classroom, boardroom, u shape, cabaret, banqueting or cocktail.
-        
-        The rooms can cater for meetings for 20 people or for you to 60 people.`,
+        description: `<p>A suite of smaller meeting rooms featuring natural lighting.</p>
+            <p>Rooms have the flexibility to accommodation whatever your requirements may be; theatre, classroom, boardroom, u shape, cabaret, banqueting or cocktail.</p>
+            <p>The rooms can cater for meetings for 20 people or for you to 60 people.</p>`,
         details: {
             contact: '+675 302 8888 for more information'
-        }
+        },
+        images: [
+            { imageFile: '/imgs/ourHotel/H4-Meeting/H4C-Mt Victoria/Our Hotel Section_Images2.jpg' },
+        ]
      
 
     },
     {
         id: 4,
         title: 'KOKODA BALLROOM',
-        img_url: KOKO,
-        description: `The signature space of The Stanley’s Meeting Spaces; a 1630 square meter room is the largest column free banquet space in Port Moresby.
-
-        The Kokoda can be minimised to smaller zones in various configurations. Whether you are planning a grand wedding, an intimate cocktail party or an important seminar, The Stanley offers tailored packages for every occasion.`,
+        description: `<p>The signature space of The Stanley’s Meeting Spaces; 
+            a 1630 square meter room is the largest column free banquet space in Port Moresby.</p>
+            <p>The Kokoda can be minimised to smaller zones in various configurations.</p>
+            <p>Whether you are planning a grand wedding, an intimate cocktail party or an important seminar, The Stanley offers tailored packages for every occasion.</p>`,
         details: {
-            contact: ' +675 302 8888 for more information'
-        }
+            contact: '+675 302 8888 for more information'
+        },
+        images: [
+            { imageFile: '/imgs/ourHotel/H4-Meeting/H4D-Ballroom/Our Hotel Section_Imagesballroom1.jpg' },
+            { imageFile: '/imgs/ourHotel/H4-Meeting/H4D-Ballroom/Our Hotel Section_Imagesballroom2.jpg' },
+            { imageFile: '/imgs/ourHotel/H4-Meeting/H4D-Ballroom/Our Hotel Section_Imagesballroom3.jpg' },
+            { imageFile: '/imgs/ourHotel/H4-Meeting/H4D-Ballroom/Our Hotel Section_Imagesballroom4.jpg' },
+            { imageFile: '/imgs/ourHotel/H4-Meeting/H4D-Ballroom/Our Hotel Section_Imagesballroom5.jpg' },
+            { imageFile: '/imgs/ourHotel/H4-Meeting/H4D-Ballroom/Our Hotel Section_Imagesballroom6.jpg' },
+            { imageFile: '/imgs/ourHotel/H4-Meeting/H4D-Ballroom/Our Hotel Section_Imagesballroom7.jpg' },
+            { imageFile: '/imgs/ourHotel/H4-Meeting/H4D-Ballroom/Our Hotel Section_ImagesMeeting.jpg' },
+            { imageFile: '/imgs/ourHotel/H4-Meeting/H4D-Ballroom/Our Hotel Section_ImagesMeeting2.jpg' },
+        ]
     
 
     }
@@ -113,13 +120,40 @@ const styles = {
 };
 
 
+/// Image Garllery
+const renderImages = (meeting) => {
+    const {  images } = meeting;
+    if (images.length > 1) {
+        return imageGallery(images, "100%", "27vh");
+    }
+    else if (images.length == 1) {
+        return (<img src={images[0].imageFile} style={{ height: '100%', width: '100%' }} />);
+    }
+    else {
+        return (
+            <div
+                style={{
+                    backgroundColor: HeavyOrange,
+                    height: "100%",
+                    padding: "30px"
+                }}
+            >
+                <h1>NO IMAGE FOR THIS RESTAURANT</h1>
+            </div>
+        );
+    }
+}
 
 const MeetingDetails = (props) => {
 
     const id = props.match.params.id;
     const _id = parseInt(id);
-    console.log(_id);
-    const _facilitiesDetails = ourhotel_Meeting[_id];
+    const _facilitiesDetails = ourhotel_Meeting.find(item => item.id == _id);
+    const currentIdx = ourhotel_Meeting.indexOf(_facilitiesDetails);
+    const prev_idx = (currentIdx - 1 < 0) ?  ourhotel_Meeting.length -1 : currentIdx - 1;
+    const next_idx = (currentIdx + 1 >= ourhotel_Meeting.length) ? 0 : currentIdx + 1;
+    const prev_id = ourhotel_Meeting[prev_idx].id;
+    const next_id = ourhotel_Meeting[next_idx].id;
 
     return (
      <div
@@ -162,7 +196,7 @@ const MeetingDetails = (props) => {
                                         className="menu-title"
                                   
                                     >
-                                        MEETING 
+                                        MEETINGS 
                                      </p>
                                     <p
                                         className="menu-title"
@@ -187,20 +221,20 @@ const MeetingDetails = (props) => {
                 <div >
                     <div className='event-main'>
                         <div style={{ height: "50%", width: "100%" }}>
-                            <img src={_facilitiesDetails.img_url} style={{ height: '100%', width: '100%' }} />
-
+                            {renderImages(_facilitiesDetails)}
                         </div>
                         <div style={{ height: "50%", width: "100%" }}>
                             <div style={{ height: "13%", display: "flex" }}>
-                                <div
+                                
+                                <Link
                                     className="event-nextPre-btn"
                                     style={{
                                         ...styles.horizontalVerticalCenter
                                     }}
-                                   
+                                    to={'/ourhotel/meeting/' + prev_id}
                                 >
-                                    <span>PREVIOUS </span>
-                                </div>
+                                    <span>PREVIOUS</span>
+                                </Link>
                                 <div
                                     className="event-title"
                                     style={{
@@ -209,15 +243,16 @@ const MeetingDetails = (props) => {
                                 >
                                     <span>{_facilitiesDetails.title}</span>
                                 </div>
-                                <div
+                                
+                                <Link
                                     className="event-nextPre-btn"
                                     style={{
                                         ...styles.horizontalVerticalCenter
                                     }}
-                            
+                                    to={'/ourhotel/meeting/' + next_id}
                                 >
                                     <span>NEXT</span>
-                                </div>
+                                </Link>
                             </div>
                             <div
                                 style={{
@@ -231,10 +266,11 @@ const MeetingDetails = (props) => {
                                         flexBasis: "50%",
                                         borderRight:
                                             "1px solid rgb(105,194,209)",
-                                        padding: "1% 1% 1% 4%"
+                                        padding: "25px 0px 0px 35px",
+                                        overflowY: "auto"
                                     }}
                                 >
-                                    <div
+                                    {false && (<div
                                         className="middle-section--innerTitle"
                                         style={{
                                             height: "15%"
@@ -242,7 +278,7 @@ const MeetingDetails = (props) => {
                                     >
                                       
                                         {/* <span>{eventDetail.month}</span> */}
-                                    </div>
+                                    </div>)}
                                     <div className="middle-section--leftSide"
                                         style={{
                                             height: "75%",
@@ -250,28 +286,21 @@ const MeetingDetails = (props) => {
                                             display: "inline-table"
                                         }}
                                     >
-                                        <p
-
+                                        <div
+                                            dangerouslySetInnerHTML={{__html: _facilitiesDetails.description}}
                                             style={{
                                                 marginTop: 0,
                                                 marginBottom: 0
                                             }}
-                                        >
-                                            {/* <Markdown
-                                            // source={event.description}
-                                            source="dhj yru  ewkhrfkhr  kurhf a  yhgdf"
-                                        /> */}
-
-                                            {_facilitiesDetails.description}
-                                        </p>
+                                        ></div>
                                     </div>
                                 </div>
                                 <div style={{
                                     flexBasis: "50%",
-                                    padding: "1%  2%"
+                                    padding: "25px 0px 0px 25px"
                                 }}
                                 >
-                                    <div style={{ height: "15%" }} />
+                                    {false && (<div style={{ height: "15%" }} />)}
                                    
                                     <div className="middle-section--rightSide"
                                         style={{
@@ -283,7 +312,7 @@ const MeetingDetails = (props) => {
                                         }}
                                     >
                                         {_facilitiesDetails.details.contact && (
-                                            <p>Please contact : {_facilitiesDetails.details.contact} </p>
+                                            <p>Please contact {_facilitiesDetails.details.contact} </p>
                                         )}
                                        
                                         

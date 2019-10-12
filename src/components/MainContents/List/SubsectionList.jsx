@@ -23,9 +23,6 @@ class SubsectionList extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(props.data);
-
-
         const { data, randomise } = this.props;
 
         this.state = {
@@ -54,7 +51,7 @@ class SubsectionList extends React.Component {
             alignItems: "center",
             justifyContent: "center"
         }
-    }
+    };
     render() {
         const { data } = this.state;
         const {
@@ -63,8 +60,11 @@ class SubsectionList extends React.Component {
             sideTitle,
             mainTitle,
             namespace,
+            thumbnailStyle = { width: "auto", height: "9.3vh"},
+            titleWrap = false
         } = this.props;
         const itemHeight = `${100 / numberOfEntries}%`;
+        const titleStyle = (titleWrap) ? 'normal' : 'nowrap'
         let toRender = data.slice();
         // if (data.length < numberOfEntries) {
         //     toRender = addNullItemToData(data, numberOfEntries);
@@ -91,26 +91,18 @@ class SubsectionList extends React.Component {
                                 return (
                                     <Link
                                         style={{
-
                                             textDecoration: "none"
                                         }}
                                         key={index}
                                         to={item.link}
                                     >
-                                        <div
-                                            className="leftSide-menu--container"
-
-                                        >
+                                        <div className="leftSide-menu--container">
                                             <img
                                                 className="leftSide-menu--img"
                                                 src={item.icon}
-
                                                 alt=""
                                             />
-                                            <div
-                                                className="menu-title"
-
-                                            >
+                                            <div className="menu-title">
                                                 {item.title}
                                             </div>
                                         </div>
@@ -118,26 +110,15 @@ class SubsectionList extends React.Component {
                                 );
                             } else if (item.isClick) {
                                 return (
-                                    <div
-
-                                        key={index}
-                                        onClick={item.onClick}
-                                    >
-                                        <div
-                                            className="leftSide-menu--container"
-
-                                        >
+                                    <div key={index} onClick={item.onClick}>
+                                        <div className="leftSide-menu--container">
                                             <img
                                                 style={{ height: "100%" }}
                                                 className="leftSide-menu--img"
                                                 src={item.icon}
-
                                                 alt=""
                                             />
-                                            <div
-                                                className="menu-title"
-
-                                            >
+                                            <div className="menu-title">
                                                 {item.title}
                                             </div>
                                         </div>
@@ -146,32 +127,22 @@ class SubsectionList extends React.Component {
                             } else if (item.isMap) {
                                 return (
                                     <SidebarMapModel
+                                        key={index}
                                         item={item}
                                         mainTitle={mainTitle}
-                                    // maps={maps}
+                                        mapImage={item.map}
                                     />
-
                                 );
                             } else {
                                 return (
-                                    <div
-
-                                        key={index}
-                                    >
-                                        <div
-                                            className="leftSide-menu--container"
-
-                                        >
+                                    <div key={index}>
+                                        <div className="leftSide-menu--container">
                                             <img
                                                 className="leftSide-menu--img"
                                                 src={item.icon}
-
                                                 alt=""
                                             />
-                                            <div
-                                                className="menu-title"
-
-                                            >
+                                            <div className="menu-title">
                                                 {item.title}
                                             </div>
                                         </div>
@@ -179,11 +150,8 @@ class SubsectionList extends React.Component {
                                 );
                             }
                         })}
-                    <div
-                        className="vertical-title"
-
-                    >
-                        <span style={{ transform: "rotate(-90deg)", whiteSpace: "nowrap" }}>
+                    <div className="vertical-title">
+                        <span style={{ transform: "rotate(-90deg)" }}>
                             {sideTitle}
                         </span>
                     </div>
@@ -196,7 +164,6 @@ class SubsectionList extends React.Component {
                             backgroundColor: LightOrange,
 
                             ...this.styles.horizontalVerticalCenter
-
                         }}
                     >
                         {mainTitle}
@@ -209,49 +176,76 @@ class SubsectionList extends React.Component {
                         }}
                         onClick={this.goUp}
                     >
-                        <img src={UpButton} style={{ width: "5%" }} alt="Up" />
+                        <img src={UpButton} style={{ width: "46.5px", height: "46.5px" }} alt="Up" />
                     </div>
-                    <div style={{ height: "80%", overflow: "hidden", backgroundColor: HeavyBlue }}>
+                    <div
+                        style={{
+                            height: "80%",
+                            overflow: "auto",
+                            backgroundColor: HeavyBlue
+                        }}
+                    >
                         {data.map((item, index) => {
-                            let imageSrc = null;
-
+                            
+                            const thumbnailBgStyle = { 
+                                ...thumbnailStyle, 
+                                backgroundImage: 'url(\'' + item.img_url + '\')',
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center center'}
+                
                             return (
-
                                 <Link
                                     style={{ textDecoration: "none" }}
-                                    to={`${namespace}/${index}`}
+                                    to={`${namespace}/${item.id}`}
                                     key={`${item.id}-${index}`}
-                                // imageSrc={`${item.imgSrc}`}
-                                // backgroundImage={ `url(${
-                                // images[index]
-                                // })`}
+                                
                                 >
-                                    <div style={{
-                                        display: "flex", alignItems: "center",
-                                        borderBottom: "1px solid white"
-                                    }}>
-                                        <div >
-                                            <div style={{
-                                                backgroundImage: `url(${imageSrc})`,
-                                                backgroundSize:
-                                                    "cover",
-                                                backgroundPosition:
-                                                    "center",
-                                            }}>
-                                                <img src={item.img_url} alt={item.event_title} style={{ width: "auto", height: "8vh" }} />
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            borderBottom: "1px solid white"
+                                        }}
+                                    >
+                                        <div>
+                                            {item.isIcon && (
+                                                <div style={thumbnailStyle}>
+                                                    <div >
+                                                    <img src={item.img_url} style={this.props.iconStyle}/>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {!item.isIcon && (
+                                                <div
+                                                style={thumbnailBgStyle}
+                                            >
                                             </div>
+                                            )}
+                                           
                                         </div>
                                         {/* <div className="subSection--title"><div>{item.event_title}</div> <div>{item.month}</div> </div> */}
                                         <div className="subSection--title">
-                                            <div style={{fontSize: "2.1vw"}}>{item.title}</div>
-                                            <div style={{ fontSize: "1.7vw" }}>{item.subTitle}
-                                            </div> </div>
+                                            <div
+                                                style={{
+                                                    fontSize: "2.25vw",
+                                                    whiteSpace: titleStyle
+                                                }}
+                                            >
+                                                {item.title}
+                                            </div>
+                                            <div
+                                                style={{
+                                                    fontSize: "2.1vw",
+                                                    whiteSpace: "nowrap"
+                                                }}
+                                            >
+                                                {item.subTitle}
+                                            </div>{" "}
+                                        </div>
                                     </div>
-
                                 </Link>
                             );
-                        }
-                        )}
+                        })}
                     </div>
                     <div
                         style={{
@@ -263,14 +257,11 @@ class SubsectionList extends React.Component {
                     >
                         <img
                             src={DownButton}
-                            style={{ width: "5%" }}
+                            style={{ width: "46.5px", height: "46.5px" }}
                             alt="Down"
                         />
                     </div>
-
-
-
-                </div >
+                </div>
             </div>
         );
     }

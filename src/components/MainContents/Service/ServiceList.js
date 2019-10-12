@@ -1,113 +1,62 @@
-import React from 'react'
-//import { connect } from "react-redux";
-import { essentialNamespace, getServiceTypeListBasedLocation, DECIMAL_RADIX, getServiceTypeDetailBasedLocation, serviceNamespace } from '../../../Constants';
-// import ServiceTypesIcon from '../Dining/icons/RestaurantListIcon.png';
-import ServiceBranch from './ServiceBranch';
+import React from "react";
+import {
+    miningNamespace,
+    essentialNamespace,
+    transportNamespace,
+    retailNamespace,
+    getServiceTypeListBasedLocation,
+    getServiceTypeDetailBasedLocation,
+    serviceNamespace
+} from "../../../Constants";
+import ListIcon from "../icons/ListIcon.png";
 import SubsectionList from "../List/SubsectionList";
-
+import { services } from "./ServiceData";
 class ServiceList extends React.Component {
     constructor(props) {
         super(props);
     }
-    bankData = [
-        { id: 'ANZ', serviceTypes: 'banks', title: 'ANZ BANK', url: essentialNamespace + "/:serid" + "/:serid", imgSrc: './icons/MinesResources.png' },
-        { id: 'Westpac', serviceTypes: 'banks', title: 'WESTPAC BANK', url: essentialNamespace + "/:serid" + "/:serid", imgSrc: './icons/._Services_Icons-Medical.svg' },
-        { id: 'South Pacific', serviceTypes: 'banks', title: 'BANK OF SOUTH PACIFIC', url: essentialNamespace + "/:serid" + "/:serid", imgSrc: './icons/._Services_Icons-Medical.svg' },
-        { id: 'BanksInfo', serviceTypes: 'banks', title: 'MORE INFO', url: essentialNamespace + "/:serid" + "/:serid", imgSrc: './icons/._Services_Icons-Medical.svg' }
-    ];
-    EmbassyData = [
-        { id: 'Indonesian Embassy', serviceTypes: 'embassy', title: 'INDONESIAN EMBASSY', url: essentialNamespace + "/:serid", imgSrc: './icons/._Services_Icons-Medical.svg' },
-        { id: 'French Embassy', serviceTypes: 'embassy', title: 'FRENCH EMBASSY', url: essentialNamespace + "/:serid", imgSrc: './icons/._Services_Icons-Medical.svg' },
-        { id: 'Malaysian Embassy', serviceTypes: 'embassy', title: 'MALAYSIAN', url: essentialNamespace + "/:serid", imgSrc: './icons/._Services_Icons-Medical.svg' },
-        { id: 'Chinese Embassy', serviceTypes: 'embassy', title: 'CHINESE EMBASSY', url: essentialNamespace + "/:serid", imgSrc: './icons/._Services_Icons-Medical.svg' }
-    ];
-    // miningData = [
-    //     { id: 1, serviceTypes: 'mining', title: 'MINES', url: miningNamespace + "/:serid", imgSrc: './icons/._Services_Icons-Medical.svg' },
-    //     { id: 2, serviceTypes: 'mining', title: 'AGRICULTURE', url: miningNamespace + "/:serid", imgSrc: './icons/._Services_Icons-Medical.svg' },
-    //     { id: 3, serviceTypes: 'mining', title: 'PETROLEUM & GAS', url: miningNamespace + "/:serid", imgSrc: './icons/._Services_Icons-Medical.svg' },
-    //     { id: 4, serviceTypes: 'mining', title: 'OFFICIAL DEPARTMENTS', url: miningNamespace + "/:serid", imgSrc: './icons/._Services_Icons-Medical.svg' }
-    // ];
-    // retailData = [
-    //     { id: 1, serviceTypes: 'mining', title: 'MINES', url: miningNamespace + "/:serid", imgSrc: './icons/._Services_Icons-Medical.svg' },
-    //     { id: 2, serviceTypes: 'mining', title: 'AGRICULTURE', url: miningNamespace + "/:serid", imgSrc: './icons/._Services_Icons-Medical.svg' },
-    //     { id: 3, serviceTypes: 'mining', title: 'PETROLEUM & GAS', url: miningNamespace + "/:serid", imgSrc: './icons/._Services_Icons-Medical.svg' },
-    //     { id: 4, serviceTypes: 'mining', title: 'OFFICIAL DEPARTMENTS', url: miningNamespace + "/:serid", imgSrc: './icons/._Services_Icons-Medical.svg' }
-    // ];
-
-
+    
     render() {
+        const service_name = this.props.match.params.servicename;
+        const service = services.find(item => item.name == service_name);
+        const { service_types } = service;
+        const sub_service_name = this.props.match.params.subservicename;
+        const sub_service = service_types.find(item => item.id === sub_service_name);
+        const sub_service_info_list = sub_service.services;
 
-        if (this.props.location.pathname.includes("banks")) {
-            // const essentialData =
-            return (
-                <div style={{ height: "54vh" }}>
-                    <SubsectionList
-                        numberOfEntries={4}
-                        data={this.bankData}
-                        imageSrc={this.bankData.imgSrc}
-                        to={this.bankData.url}
-                        namespace="banks"
-                        imageKey="imageServiceType"
-                        isImageArray={true}
-                        // sideButtons={[
-                        //     { title: "SERVICE TYPES", icon: ServiceTypesIcon, isLink: true, link: serviceNamespace }
-                        // ]}
-                        sideTitle="SERVICES"
-                        mainTitle="BANKS"
-                    />
+        // change title to Upper case
+        const mod_sub_service_info_list = sub_service_info_list.map( item => {
+            return { ...item, title: item.title.toUpperCase()}
+        })
 
-                </div>
+        return (
+            <div
+                className="section--bottom--animation"
+                style={{ width: "100%", height: "100%", color: "white" }}
+            >
+                <SubsectionList
+                    numberOfEntries={4}
+                    data={mod_sub_service_info_list}
 
-            );
+                    namespace={service.sub_url + '/' +sub_service_name}
+                    imageKey="logo"
+                    isImageArray={true}
+                    sideButtons={[
+                        { title: "SERVICE TYPES", isLink: true, link: serviceNamespace, icon: ListIcon },
+                        { title: service.title.toUpperCase(), isLink: true, link: service.sub_url, icon: service.icon }
+                    ]}
+                    sideTitle="SERVICES"
+                    mainTitle={sub_service.title.toUpperCase()}
+                    thumbnailStyle={{ width: "316px", height: "206.5px", paddingLeft: '80px', paddingTop: '50px'}}
+                    iconStyle={{width: '100%', height:'auto', maxWidth: '170px', maxHeight:'120px'}}
+                    titleWrap={true}
+                >
 
-            // } else if (this.props.location.pathname.includes(essentialNamespace)) {
-            //     return (
-            //         <div style={{ height: "54vh" }}>
-            //             <SubsectionList
-            //                 numberOfEntries={4}
-            //                 data={this.essentialData}
-            //                 imageSrc={this.essentialData.imgSrc}
-            //                 to={this.essentialData.url}
-            //                 namespace="essential"
-            //                 imageKey="imageServiceType"
-            //                 isImageArray={true}
-            //                 sideButtons={[
-            //                     { title: "SERVICE TYPES", icon: ServiceTypesIcon, isLink: true, link: serviceNamespace }
-            //                 ]}
-            //                 sideTitle="SERVICES"
-            //                 mainTitle="ESSENIIAL SERVICES"
-            //             />
+                </SubsectionList>
 
-            //         </div>);
+            </div >
+        );
 
-            // } else if (this.props.location.pathname.includes(miningNamespace)) {
-            //     return (
-            //         <div style={{ height: "54vh" }}>
-            //             <SubsectionList
-            //                 numberOfEntries={4}
-            //                 data={this.miningData}
-            //                 imageSrc={this.miningData.imgSrc}
-            //                 to={this.miningData.url}
-            //                 namespace="mining"
-            //                 imageKey="imageServiceType"
-            //                 isImageArray={true}
-            //                 sideButtons={[
-            //                     { title: "SERVICE TYPES", icon: ServiceTypesIcon, isLink: true, link: serviceNamespace }
-            //                 ]}
-            //                 sideTitle="SERVICES"
-            //                 mainTitle="MINING SERVICES"
-            //             />
-
-            //         </div>);
-        }
-        else {
-            return (
-                <div>AAAAAA</div>
-            )
-        }
     }
-
-
 }
-//export default connect(mapStateToProps, null)(ServiceList);
 export default ServiceList;

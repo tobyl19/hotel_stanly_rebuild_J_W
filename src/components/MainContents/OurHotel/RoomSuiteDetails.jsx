@@ -3,13 +3,6 @@ import React from 'react';
 import RestaurantListicon from './icons/RestaurantListIcon.6a75108a.png';
 import { Link } from "react-router-dom";
 
-import StandTwin  from './img_logo/Our_Hotel_Section_Imagesstandard.jpg';
-import DeluxeKing  from './img_logo/Our_Hotel_Section_Images_Pres_d1uSXpj.jpg';
-import ExedutiveKing  from './img_logo/Our_Hotel_Section_Images_AuBae3aKing.jpg';
-import CornerSuite from './img_logo/Our_Hotel_Section_Images-JUNIOR-SUITE.jpg';
-import JuniorSuite from './img_logo/Our_Hotel_Section_Imagesstandard.jpg';
-import Persidential from './img_logo/Our_Hotel_Section_Images_Pres_d1uSXpj.jpg';
-
 
 import '../List/MainSectionList.scss';
 import "./OurHotel.scss";
@@ -18,7 +11,7 @@ import "./OurHotel.scss";
 
 import {
     eventNamespace,
-    accomodationNamespace,
+    imageGallery,
     HeavyOrange,
     LightBlueButtonBackground,
     ExtraHeavyBlueGreen,
@@ -31,28 +24,32 @@ const ourhotel_room_suite = [
         id: 1,
         title_img: '',
         title: 'STANDARD TWIN',
-        img_url: StandTwin,
-        description: 'All rooms come with two Queen-sized beds, a work desk, monsoon shower and face either north with a fabulous view overlooking the pool, or south overlooking the Owen Stanley Mountain Rang',
+        description: 'All rooms come with two Queen-sized beds, a work desk, monsoon shower and face either north with a fabulous view overlooking the pool, or south overlooking the Owen Stanley Mountain Range.',
         details: {
             size: '34sqm',
             bed: 'Two Queens',
             location: 'From 5th to 8th floors',
             occpancy: 'Two adults and Two children, or Three adults'
-        }
+        },
+        images: [
+            { imageFile: '/imgs/ourHotel/H1-Rooms and Suites/H1A-Standard/Our Hotel Section_Imagesstandard.jpg' }
+        ]
        
     },
     {
         id: 2,
         title_img: '',
         title: 'DELUXE KING',
-        img_url: DeluxeKing,
         description: 'Our modern Deluxe rooms come with one King-sized bed, a work desk, a spacious bathroom with monsoon shower head and offer views of either the pool or Waigani skyline at night and the Owen Stanley Mountain Range in the morning.',
         details: {
             size: '34sqm',
             bed: 'One King',
             location: 'From 9th to 12th floors',
             occpancy: 'Two Adults'
-        }
+        },
+        images: [
+            { imageFile: '/imgs/ourHotel/H1-Rooms and Suites/H1B-Deluxe/Our Hotel Section_ImagesDeluxe.jpg' }
+        ]
        
 
     },
@@ -60,31 +57,39 @@ const ourhotel_room_suite = [
         id: 3,
         title_img: '',
         title: 'EXECUTIVE KING',
-        img_url: ExedutiveKing,
         description: 'Located on high floors and the rooms come with one King-sized bed, a work desk, a spacious bathroom with monsoon shower head and offer views of either the pool or Waigani skyline at night and the Owen Stanley Mountain Range in the morning. Guests receive access to the Executive Club Lounge services and facilities.',
         details: {
             size: '34sqm',
             bed: 'One King',
             location: 'From 14th to 18th floors',
             occpancy: 'Two Adults'
-        }
+        },
+        images: [
+         //   { imageFile: '/imgs/ourHotel/H1-Rooms and Suites/H1C-Executive/Our Hotel Section_Images.jpg' },
+            { imageFile: '/imgs/ourHotel/H1-Rooms and Suites/H1C-Executive/Our Hotel Section_Images5.jpg' }
+        ]
 
     },
     {
         id: 4,
         title_img: '',
         title: 'CORNER SUITE',
-        img_url: CornerSuite,
         description: `The Corner Suites feature a sumptuous living experience with views of Waigani skyline and the Owen Stanley Mountains. 
-                        Separate sleeping and living area
-                        Elegant stand-alone tub and glass-enclosed monsoon shower
-                        Complimentary access to Executive Club Lounge services and facilities`,
+                        <ul>
+                            <li>Separate sleeping and living area</li>
+                            <li>Elegant stand-alone tub and glass-enclosed monsoon shower</li>
+                            <li>Complimentary access to Executive Club Lounge services and facilities</li>
+                        </ul>`,
         details: {
             size: '68sqm',
             bed: 'One Super King',
             location: 'From 5th to 18th floors',
             occpancy: 'Two Adults'
-        }
+        },
+        images: [
+            { imageFile: '/imgs/ourHotel/H1-Rooms and Suites/H1D-Corner/Our Hotel Section_ImagesCorner.jpg' },
+            { imageFile: '/imgs/ourHotel/H1-Rooms and Suites/H1D-Corner/Our Hotel Section_Imagessuite.jpg' }
+        ]
 
        
 
@@ -93,40 +98,47 @@ const ourhotel_room_suite = [
         id: 5,
         title_img: '',
         title: 'JUNIOR SUITE',
-        img_url: JuniorSuite,
         description: `Luxuriously spacious, this elegant suite in The Stanley Hotel and Suites is ideal for work or entertaining and offers top-floor views of the pool area.
-
-                        A large dining room that can seat up to 8 guests.
-                        A kitchenette.
-                        Complimentary access to Executive Club Lounge services and facilities.
-                        The luxurious marble bathroom offers an extra-large soaking tub and separate walk-in shower.
-                        Direct lift access to/from the basement car park, and the ability to interconnect with the Presidential Suite *Only two rooms on this floor for the ultimate security`,
+                        <ul>
+                            <li>A large dining room that can seat up to 8 guests.</li>
+                            <li>A kitchenette.</li>
+                            <li>Complimentary access to Executive Club Lounge services and facilities.</li>
+                            <li>The luxurious marble bathroom offers an extra-large soaking tub and separate walk-in shower.</li>
+                            <li>Direct lift access to/from the basement car park, and the ability to interconnect with the Presidential Suite *Only two rooms on this floor for the ultimate security</li>
+                        </ul>`,
         details: {
             size: '130sqm',
-            bed: 'one Super King and One King',
+            bed: 'One Super King and One King',
             location: '20th Floor',
-            occpancy: 'Two Adults and One child, Or Four Adults'
-        }
+            occpancy: 'Two Adults and One child, or Four Adults'
+        },
+        images: [
+            { imageFile: '/imgs/ourHotel/H1-Rooms and Suites/H1E-Junior/Our Hotel Section_Images.jpg' }
+        ]
 
     },
     {
         id: 6,
         title_img: '',
         title: 'PRESIDENTIAL SUITE',
-        img_url: Persidential,
-        description: `Enjoy the grand living spaces, stunning top-floor views of the Own Stanley Mountain ranges and National Stadium from this expansive luxury suite in The Stanley Hotel & Suites.
-
-                        Elegant dining room that can seat up to 14 guests
-                        Full kitchen for private dining and preparation
-                        Complimentary access to Executive Club Lounge services and facilities
-                        Expansive marble bathroom overlooking the mountains with double vanity, separate monsoon shower and oversized Jacuzzi bathtub for ultimate comfort
-                        Direct lift access to/from the basement car park, and the ability to interconnect with the Junior Suite *Only two rooms on this floor for the ultimate security`,
+        description: `Enjoy the grand living spaces, stunning top-floor views of the Own Stanley Mountain ranges and National Stadium from this expansive luxury suite in The Stanley Hotel &amp; Suites.
+                        <ul>
+                            <li>Elegant dining room that can seat up to 14 guests</li>
+                            <li>Full kitchen for private dining and preparation</li>
+                            <li>Complimentary access to Executive Club Lounge services and facilities</li>
+                            <li>Expansive marble bathroom overlooking the mountains with double vanity, separate monsoon shower and oversized Jacuzzi bathtub for ultimate comfort</li>                        
+                            <li>Direct lift access to/from the basement car park, and the ability to interconnect with the Junior Suite *Only two rooms on this floor for the ultimate security</li>
+                        </ul>`,
         details: {
             size: '340sqm',
             bed: 'One Super King and Two Queen',
             location: '20th Floor',
-            occpancy: 'Two Adults and Two Children or Four Adults'
-        }
+            occpancy: 'Two Adults and Two Children, or Four Adults'
+        },
+        images: [
+            { imageFile: '/imgs/ourHotel/H1-Rooms and Suites/H1F-Presidential/Our Hotel Section_Images_Pres.jpg' },
+            { imageFile: '/imgs/ourHotel/H1-Rooms and Suites/H1F-Presidential/Our Hotel Section_Imagespresidential.jpg' }
+        ]
 
     }
 ]
@@ -160,12 +172,43 @@ const styles = {
     removePaddingMargin: { margin: 0, padding: 0 }
 };
 
+
+
+/// Image Garllery
+const renderImages = (rooms) => {
+    const {  images } = rooms;
+    if (images.length > 1) {
+        return imageGallery(images, "100%", "27vh");
+    }
+    else if (images.length == 1) {
+        return (<img src={images[0].imageFile} style={{ height: '100%', width: '100%' }} />);
+    }
+    else {
+        return (
+            <div
+                style={{
+                    backgroundColor: HeavyOrange,
+                    height: "100%",
+                    padding: "30px"
+                }}
+            >
+                <h1>NO IMAGE FOR THIS ROOM</h1>
+            </div>
+        );
+    }
+}
+
+
 const RoomSuiteDetails = (props) => {
 
     const id = props.match.params.id;
     const _id = parseInt(id);
-    console.log(_id);
-    const _RoomSuiteDetails = ourhotel_room_suite[_id];
+    const _RoomSuiteDetails = ourhotel_room_suite.find(item => item.id == _id);
+    const currentIdx = ourhotel_room_suite.indexOf(_RoomSuiteDetails);
+    const prev_idx = (currentIdx - 1 < 0) ?  ourhotel_room_suite.length -1 : currentIdx - 1;
+    const next_idx = (currentIdx + 1 >= ourhotel_room_suite.length) ? 0 : currentIdx + 1;
+    const prev_id = ourhotel_room_suite[prev_idx].id;
+    const next_id = ourhotel_room_suite[next_idx].id;
 
     return (
      <div
@@ -208,7 +251,7 @@ const RoomSuiteDetails = (props) => {
                                         className="menu-title"
                                   
                                     >
-                                        ROOMS & SUITES
+                                        ROOMS &amp; SUITES
                                      </p>
                                     <p
                                         className="menu-title"
@@ -234,20 +277,19 @@ const RoomSuiteDetails = (props) => {
                 <div >
                     <div className='event-main'>
                         <div style={{ height: "50%", width: "100%" }}>
-                            <img src={_RoomSuiteDetails.img_url} style={{ height: '100%', width: '100%' }} />
-
+                            {renderImages(_RoomSuiteDetails)}
                         </div>
                         <div style={{ height: "50%", width: "100%" }}>
                             <div style={{ height: "13%", display: "flex" }}>
-                                <div
+                                <Link
                                     className="event-nextPre-btn"
                                     style={{
                                         ...styles.horizontalVerticalCenter
                                     }}
-                                   
+                                    to={'/ourhotel/roomsuite/' + prev_id}
                                 >
-                                    <span>PREVIOUS </span>
-                                </div>
+                                    <span>PREVIOUS</span>
+                                </Link>
                                 <div
                                     className="event-title"
                                     style={{
@@ -256,15 +298,15 @@ const RoomSuiteDetails = (props) => {
                                 >
                                     <span>{_RoomSuiteDetails.title}</span>
                                 </div>
-                                <div
+                                <Link
                                     className="event-nextPre-btn"
                                     style={{
                                         ...styles.horizontalVerticalCenter
                                     }}
-                            
+                                    to={'/ourhotel/roomsuite/' + next_id}
                                 >
                                     <span>NEXT</span>
-                                </div>
+                                </Link>
                             </div>
                             <div
                                 style={{
@@ -278,9 +320,11 @@ const RoomSuiteDetails = (props) => {
                                         flexBasis: "50%",
                                         borderRight:
                                             "1px solid rgb(105,194,209)",
-                                        padding: "1% 1% 1% 4%"
+                                        padding: "25px 0px 0px 35px",
+                                        overflowY: "auto"
                                     }}
                                 >
+                                {false && (
                                     <div
                                         className="middle-section--innerTitle"
                                         style={{
@@ -290,6 +334,7 @@ const RoomSuiteDetails = (props) => {
                                       
                                         {/* <span>{eventDetail.month}</span> */}
                                     </div>
+                                )}
                                     <div className="middle-section--leftSide"
                                         style={{
                                             height: "75%",
@@ -297,28 +342,21 @@ const RoomSuiteDetails = (props) => {
                                             display: "inline-table"
                                         }}
                                     >
-                                        <p
-
+                                        <div
+                                            dangerouslySetInnerHTML={{__html: _RoomSuiteDetails.description}}
                                             style={{
                                                 marginTop: 0,
                                                 marginBottom: 0
                                             }}
-                                        >
-                                            {/* <Markdown
-                                            // source={event.description}
-                                            source="dhj yru  ewkhrfkhr  kurhf a  yhgdf"
-                                        /> */}
-
-                                            {_RoomSuiteDetails.description}
-                                        </p>
+                                        ></div>
                                     </div>
                                 </div>
                                 <div style={{
                                     flexBasis: "50%",
-                                    padding: "1%  2%"
+                                    padding: "25px 0px 0px 25px"
                                 }}
                                 >
-                                    <div style={{ height: "15%" }} />
+                                    {false && <div style={{ height: "15%" }} />}
                                    
                                     <div className="middle-section--rightSide"
                                         style={{

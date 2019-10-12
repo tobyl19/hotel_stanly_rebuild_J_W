@@ -18,43 +18,43 @@ import  RainforestCafe from './img_logo/dinings/R24-DININGLOGO_P-RINGFOREST.jpg'
 const ourhotel_Dinings = [
     {
         id: 1,
-        title: 'SILVER LEAF',
-        img_url: SilverLeaf,
+        title: 'GREEN HAUS RESTAURANT',
+        img_url: GreenHausRes,
     },
     {
         id: 2,
-        title: 'GREEN HAUS RESTAURANT',
-        img_url: GreenHausRes,
+        title: 'RAIN FOREST CAFÉ',
+        img_url: RainforestCafe,
 
     },
     {
         id: 3,
-        title: 'MONSOON LOUNGE & BAR',
+        title: 'MONSOON LOUNGE AND BAR',
         img_url: MonsoonLoungeBar,
 
     },
     {
         id: 4,
-        title: 'MEZZ BAR',
-        img_url: MezzBar,
-
-    },
-    {
-        id: 5,
         title: 'THE POOL DECK',
         img_url: ThePoolDeck,
 
     },
     {
+        id: 5,
+        title: 'SILVER LEAF',
+        img_url: SilverLeaf,
+
+    },
+    {
         id: 6,
-        title: 'EXECITIVE CLUB LOUNGE',
+        title: 'EXECUTIVE CLUB LOUNGE',
         img_url: ExecitiveClubLounge
 
     },
     {
         id: 7,
-        title: 'RAINFOREST CAFE',
-        img_url: RainforestCafe,
+        title: 'MEZZ BAR',
+        img_url: MezzBar,
     }
 ]
 
@@ -75,8 +75,9 @@ const Dining = () => {
                  { title: "RETURN TO LIST", isLink: true, link:'/ourhotel', icon: RestaurantListicon }
              ]}
              sideTitle="OUR HOTEL"
-             mainTitle="DINGING"
+             mainTitle="DINING"
              evenDetailsProps={ourhotel_Dinings}
+             thumbnailStyle={{ width: "316px", height: "207px"}}
         >
             
         </SubsectionList> 

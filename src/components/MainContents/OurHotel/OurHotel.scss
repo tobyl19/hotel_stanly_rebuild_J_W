@@ -3,7 +3,8 @@
 .event-title {
     flex-basis: 72%;
     background-color: $LightBlueButtonBackground;
-
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
     span {
         font-size: 3.2vw;
         font-weight: bold;
@@ -29,7 +30,8 @@
 .event-nextPre-btn {
     flex-basis: 14%;
     background-color: rgb(101, 199, 197);
-    span {
+    color: white;
+    span{
         font-size: $p;
         letter-spacing: 2px;
 
@@ -50,6 +52,11 @@
             padding: 0;
         }
     }
+    
+}
+.event-nextPre-btn:hover, .event-nextPre-btn:active {
+    color: white;
+    text-decoration: none;
 }
 
 .event-main{

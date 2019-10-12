@@ -14,7 +14,6 @@ import {
     serviceNamespace,
     mapListNamespace,
     activityNamespace,
-
     airportInfoNamespace,
     shiftArray
 } from "../../../Constants";
@@ -25,12 +24,11 @@ import DiningIcon from "./icons/DINING_ICON.png";
 import EventsIcon from "./icons/EVENTS_ICON.png";
 import ServicesIcon from "./icons/SERVICES_ICON.png";
 import MapListIcon from "./icons/MAP_LIST_ICON.png";
-import "./mainNav.scss"
-//import { connect } from "react-redux";
-//import * as actions from "../actions";
-//import "./Tab.scss";
+import "./mainNav.scss";
 
 class mainNav extends React.Component {
+    middle = 3;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -50,13 +48,14 @@ class mainNav extends React.Component {
                 },
                 {
                     name: "ACTIVITIES",
-                    path: activityNamespace,
+                    // path: activityNamespace,
+                    path: "/activities",
                     icon: ActivitiesIcon,
                     iconWidth: "70px"
                 },
                 {
                     name: "DESTINATIONS",
-                    path: '/destinations',
+                    path: "/destinations",
                     icon: DestinationsIcon,
                     iconWidth: "90px"
                 },
@@ -73,8 +72,8 @@ class mainNav extends React.Component {
                     iconWidth: "70px"
                 },
                 {
-                    name: "Our HOTELS",
-                    path: '/ourhotel',
+                    name: "OUR HOTEL",
+                    path: "/ourhotel",
                     icon: AccommodationIcon,
                     iconWidth: "70px"
                 }
@@ -82,61 +81,169 @@ class mainNav extends React.Component {
             sameClicked: false,
             performClick: false
         };
-
+        this.clickItem = this.clickItem.bind(this);
     }
-    middle = 3;
+   
+    componentDidMount() {
+        // Update route according to middle tab...
+        const { history } = this.props;
+        const { location } = history;
+        const { tabs, sameClicked, performClick } = this.state;
+        if (location.pathname.includes(tabs[this.middle].path)) {
+            if (sameClicked && performClick) {
+                //If clicked on the same main tab even though similar location, force redirect
+                history.replace(tabs[this.middle].path);
+                this.setState({ performClick: false });
+            }
+        } else if (
+            location.pathname !== tabs[this.middle].path &&
+            performClick
+        ) {
+            //Only perform redirect if a performClick on one of the Main Tab is done
+            history.replace(tabs[this.middle].path);
+            this.setState({ performClick: false });
+        } else if (location.pathname !== tabs[this.middle].path) {
+            //Perform tab changing due to automatic redirection
+            tabs.forEach((tab, index) => {
+                if (location.pathname.includes(tab.path)) {
+                    //Change the tabs array based on the difference of the middle and current location pathname
+                    const tempTabs = shiftArray(tabs, this.middle - index);
+                    this.setState({
+                        tabs: tempTabs,
+                        tab: tempTabs[this.middle].name,
+                        sameClicked: false,
+                        performClick: false
+                    });
+                }
+            });
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        // check if idle state changed
+        if (prevProps.isIdle !== this.props.isIdle) {
+            if (this.props.isIdle === false) {
+                // this indicate switching from showcase mode to interactive mode
+                const default_pathname = destinationNamespace;
+                const { tabs } = this.state;
+                if (default_pathname !== tabs[this.middle].path) {
+                    //Change the tabs array based on the difference of the middle and current location pathname
+                    tabs.forEach((tab, index) => {
+                        if (default_pathname.includes(tab.path)) {
+                            //Change the tabs array based on the difference of the middle and current location pathname
+                            const tempTabs = shiftArray(tabs, this.middle - index);
+                            this.setState({
+                                tabs: tempTabs,
+                                tab: tempTabs[this.middle].name,
+                                sameClicked: false,
+                                performClick: false
+                            });
+                        }
+                    });
+                }
+                
+            }
+        }
+    }
+
+    clickItem(clickedTab, clickIndex) {
+        // get tabs
+        const { tabs } = this.state;
+        // check if clicked tab is the middle one
+        if (clickedTab === tabs[this.middle]) {
+            this.setState({ sameClicked: true, performClick: true });
+        }
+        else {
+            const tempTabs = shiftArray(tabs, this.middle - clickIndex);
+            this.setState({
+                tabs: tempTabs,
+                sameClicked: false,
+                performClick: true
+            });
+        }
+    }
 
     render() {
         const { tabs } = this.state;
-        // const { pathname } = this.props.location;
+
+        const checkActive = (match, location) => {
+            //some additional logic to verify if current link is active
+            if(!location) return false;
+            const {pathname} = location;
+            if (!match) return false;
+            if (match.isExact)
+                return true;
+            if (pathname.indexOf(match.url) >= 0)
+                return true;
+            return pathname === "/";
+        }
+
         return (
             <div style={{ width: "100vw", height: "8vh" }}>
-                <div style={{ width: "100%", height: "100%", display: "flex", boxShadow: "2px 5px 10px black", position: "relative" }}>
+                <div
+                    style={{
+                        width: "100%",
+                        height: "100%",
+                        display: "flex",
+                        boxShadow: "-5px 5px 10px black",
+                        position: "relative",
+                        zIndex: 6
+                    }}
+                >
                     {tabs.map((t, i) => {
                         return (
-                            <div className="item-tab not-selected">
-                                <NavLink style={{ display: "inline-block", flexDirection: "column", width: "100%", height: "100%", textAlign: "center" }} to={t.path}>
-                                    <div>
-                                        <div style={{
-                                            display: "inline-block",
-                                            textAlign: "center",
-                                            marginTop: "-7%"
-                                        }}>
-                                            <img
-                                                alt=""
-                                                src={t.icon
-                                                }
-                                                style={{
-
-                                                    position: "relative",
-                                                    width: !!t.iconWidth ? t.iconWidth : "50%",
-                                                    height:"auto",
-                                                    marginBottom:"25%",
-                                                    // margin: "0 auto",
-                                                    display: "inline-block"
-
-                                                }}
-                                                className="tab--icon icon-img"
-                                            />
-                                        </div>
-                                        <div
+                            <div key={i} className="item-tab not-selected">
+                                <NavLink
+                                    to={t.path}
+                                    activeClassName="active-link"
+                                    isActive={checkActive}
+                                    style={{
+                                        height: "100%",
+                                        width: "100%",
+                                        display: "block",
+                                        textDecoration: "none",
+                                        borderStyle: "none solid solid solid",
+                                        borderColor: "#49afbd",
+                                        borderWidth: "2px"
+                                    }}
+                                    onClick={() => { this.clickItem(t, i);}}
+                                >
+                                    <div
+                                        style={{
+                                            marginTop: "10%",
+                                            height: "90px",
+                                            width: "100%",
+                                            display: "block"
+                                        }}
+                                    >
+                                        <img
+                                            alt=""
+                                            src={t.icon}
                                             style={{
-                                                padding: 0
+                                                height: "100%",
+
+                                                width: !!t.iconWidth
+                                                    ? t.iconWidth
+                                                    : "50%",
+                                                // width: "40%",
+                                                height: "auto",
+                                                marginBottom: "25%",
+                                                margin: "5% auto"
                                             }}
-                                            className=" tabName-container"
-                                        >
-                                            <p>{t.name}</p>
-                                        </div>
+                                            // className="tab--icon icon-img"
+                                        />
                                     </div>
+                                    <p
+                                        style={{
+                                            // height: "30%",
+                                            fontSize: "1.5vw",
+                                            fontWeight: "500"
+                                        }}
+                                    >
+                                        {t.name}
+                                    </p>
                                 </NavLink>
                             </div>
-                            // <Tab
-                            //     key={i}
-                            //     name={t.name}
-                            //     icon={t.icon}
-                            //     iconWidth={t.iconWidth}
-
-                            // />
                         );
                     })}
                 </div>
@@ -146,188 +253,3 @@ class mainNav extends React.Component {
 }
 
 export default mainNav;
-        // export default connect(
-        //     null,
-        //     actions
-        // )(MainTabList);
-
-
-
-// import React from 'react';
-// import { Link } from 'react-router-dom'; 
-
-// import { makeStyles } from '@material-ui/core/styles';
-// import Card from '@material-ui/core/Card';
-// import CardMedia from '@material-ui/core/CardMedia';
-// import CardContent from '@material-ui/core/CardContent';
-// import Typography from '@material-ui/core/Typography';
-// import Grid from '@material-ui/core/Grid';
-
-// const useStyles = makeStyles(theme => ({
-//     root: {
-//         padding: theme.spacing(0.7),
-//         flexGrow: 1,
-//         justifyContent:"center"
-//     },
-//     card: {
-//       width: 175,
-//       height: 150,
-//       maxWidth: 1980,
-//       background: '#0D6D79'
-//     },
-//     media: {
-//       height: 0,
-//       paddingTop: '56.25%', // 16:9
-//     }
-
-//   }));
-
-// const MainNav = () => {
-//     const classes = useStyles();
-
-
-//     return (
-//         <div className={classes.root}>
-
-//             <Grid container spacing={1}> 
-
-//                 <Grid item >
-
-//                     <Card className={classes.card}>
-//                         <Link to="services">
-//                         <CardMedia
-//                         className={classes.media}
-//                         image="./imgs/mainNavicon/SERVICES_ICON.b3cd6c9f.png"
-//                         title="services"
-//                         />
-//                         <CardContent>
-//                         <Typography >
-//                             SERVICES
-//                         </Typography>
-//                         </CardContent>
-
-//                         </Link>
-
-//                     </Card>
-//                 </Grid>
-
-
-//                 <Grid item >
-
-//                     <Card className={classes.card}>
-//                         <Link to="/maps/0">
-//                             <CardMedia
-//                             className={classes.media}
-//                             image="./imgs/mainNavicon/MAP_LIST_ICON.3589f924.png"
-//                             title="Paella dish"
-//                             />
-//                             <CardContent>
-//                             <Typography >
-//                             Maps
-//                             </Typography>
-//                             </CardContent>
-//                         </Link>
-//                     </Card>
-//                 </Grid>
-
-//                 <Grid item >
-
-//                     <Card className={classes.card}>
-
-//                         <CardMedia
-//                         className={classes.media}
-//                         image="./imgs/mainNavicon/ACTIVITIES_ICON.ec2ba613.png"
-//                         title="Paella dish"
-//                         />
-//                         <CardContent>
-//                         <Typography >
-//                             ACTIVITES
-//                         </Typography>
-//                         </CardContent>
-
-//                     </Card>
-//                 </Grid>
-//                 <Grid item >
-
-//                     <Card className={classes.card}>
-
-//                         <CardMedia
-//                         className={classes.media}
-//                         image="./imgs/mainNavicon/DESTINATIONS_ICON.1fde2389.png"
-//                         title="Paella dish"
-//                         />
-//                         <CardContent>
-//                         <Typography >
-//                             DESTINATIONS
-//                         </Typography>
-//                         </CardContent>
-
-//                     </Card>
-//                 </Grid>
-//                 <Grid item >
-//                     <Link to="/events" >
-//                             <Card className={classes.card}>
-
-//                             <CardMedia
-//                             className={classes.media}
-//                             image="./imgs/mainNavicon/EVENTS_ICON.33f090dd.png"
-//                             title="Paella dish"
-//                             />
-//                             <CardContent>
-//                             <Typography >
-//                                 EVENT
-//                             </Typography>
-//                             </CardContent>
-
-//                         </Card>
-//                     </Link>
-
-//                 </Grid>
-//                 <Grid item >
-
-//                     <Card className={classes.card}>
-
-//                         <CardMedia
-//                         className={classes.media}
-//                         image="./imgs/mainNavicon/DINING_ICON.c10cf25e.png"
-//                         title="Paella dish"
-//                         />
-//                         <CardContent>
-//                         <Typography >
-//                             DINING
-//                         </Typography>
-//                         </CardContent>
-
-//                     </Card>
-//                 </Grid>
-
-
-//                 <Grid item >
-
-//                     <Card className={classes.card}>
-//                     <Link to="/ourhotel">
-//                     <CardMedia
-//                         className={classes.media}
-//                         image="./imgs/mainNavicon/ACCOMMODATION_ICON.050050c5.png"
-//                         title="Paella dish"
-//                         />
-//                         <CardContent>
-//                         <Typography >OUR HOTEL
-//                         </Typography>
-//                         </CardContent>
-//                     </Link>
-
-
-//                     </Card>
-//                 </Grid>
-
-
-
-//             </Grid>
-
-//         </div>
-//     )
-// }
-
-
-// export default MainNav;

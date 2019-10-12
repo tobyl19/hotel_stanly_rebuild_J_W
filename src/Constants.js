@@ -31,6 +31,7 @@ export const LightBlue = "rgba(73, 175, 189, 0.4)";
 export const LightBlueButtonBackground = "rgb(1, 155, 167)";
 export const ExtraHeavyBlueGreen = "rgb(5, 140, 155)";
 export const SelectedBorderColor = "rgb(183, 223, 228)";
+export const LightBlueGreen = "rgb(1, 155, 167)";
 
 
 
@@ -52,6 +53,7 @@ export const airportInfoNamespace = "/airportinfo";
 export const searchResultNamespace = "/searchresult";
 export const hotelDetailNamespace = "/hoteldetail";
 export const directoryListNamespace = "/directorylist";
+export const videosNamespace = "/videos";
 
 
 export const SUBSECTION_LIST_ENTRIES = 6;
@@ -356,7 +358,7 @@ export function imageGallery(
                         className="image-gallery-left-nav"
                         onClick={onClick}
                         color={HeavyOrange}
-                        style={{ padding: 0, height: 64, width: 64 }}
+                        style={{ padding: 0, height: 64, width: 64, color: HeavyOrange }}
                     />
                 )}
                 renderRightNav={(onClick, _disabled) => (
@@ -364,7 +366,7 @@ export function imageGallery(
                         className="image-gallery-right-nav"
                         onClick={onClick}
                         color={HeavyOrange}
-                        style={{ padding: 0, height: 64, width: 64 }}
+                        style={{ padding: 0, height: 64, width: 64, color: HeavyOrange }}
                     />
                 )}
                 renderPlayPauseButton={(onClick, isPlaying) => {
@@ -374,7 +376,7 @@ export function imageGallery(
                                 className="image-gallery-play-button active"
                                 onClick={onClick}
                                 color={HeavyOrange}
-                                style={{ padding: 0, height: 64, width: 64 }}
+                                style={{ padding: 0, height: 64, width: 64, color: HeavyOrange }}
                             />
                         );
                     } else {
@@ -383,7 +385,7 @@ export function imageGallery(
                                 className="image-gallery-play-button"
                                 onClick={onClick}
                                 color={HeavyOrange}
-                                style={{ padding: 0, height: 64, width: 64 }}
+                                style={{ padding: 0, height: 64, width: 64, color: HeavyOrange }}
                             />
                         );
                     }
@@ -415,4 +417,8 @@ export function imageGallery(
 
 export function removeHttp(website) {
     return website.replace(/^https?:\/\//i, "");
+}
+
+export function randomNumber(min, max) {  
+    return Math.floor(Math.random() * (max - min) + min); 
 }

@@ -58,8 +58,9 @@ const Facilities = () => {
                  { title: "RETURN TO LIST", isLink: true, link: '/ourhotel', icon: RestaurantListicon }
              ]}
              sideTitle="OUR HOTEL"
-             mainTitle="FACILITIE"
-             evenDetailsProps={ourhotel_Facilities}
+             mainTitle="FACILITIES"
+             evenDetailsProps={ourhotel_Facilities}             
+             thumbnailStyle={{ width: "316px", height: "207px"}}
         >
             
         </SubsectionList> 
